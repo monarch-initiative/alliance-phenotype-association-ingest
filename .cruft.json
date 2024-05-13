@@ -1,0 +1,25 @@
+{
+  "template": "https://github.com/monarch-initiative/cookiecutter-monarch-ingest.git",
+  "commit": "c2a5320ef5e9bb78c6ee66e26a374fda6d6a7645",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "github_org_name": "monarch-initiative",
+      "project_name": "alliance-phenotype-association-ingest",
+      "project_description": "KGX transform of all Alliance of Genome Resoures phenotype associations",
+      "__repo_name": "alliance-phenotype-association-ingest",
+      "__project_slug": "alliance_phenotype_association_ingest",
+      "__project_url": "https://github.com/monarch-initiative/alliance-phenotype-association-ingest",
+      "ingest_source": "alliance",
+      "ingest_type": "phenotype_associations",
+      "__ingest_name": "alliance_phenotype_associations",
+      "min_python_version": "3.10",
+      "full_name": "Kevin Schaper",
+      "email": "kevin@tislab.org",
+      "__author": "Kevin Schaper <kevin@tislab.org>",
+      "license": "BSD-3",
+      "_template": "https://github.com/monarch-initiative/cookiecutter-monarch-ingest.git"
+    }
+  },
+  "directory": null
+}
