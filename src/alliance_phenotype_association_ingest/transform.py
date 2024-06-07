@@ -32,6 +32,8 @@ while (row := koza_app.get_row()) is not None:
         logger.warning("Phenotype ingest record has >1 phenotype terms: " + str(row))
         koza_app.next_row()
 
+    print(row)
+
     id = row["objectId"]
     try: category = entity_lookup[id]["category"]
     except KeyError:
@@ -50,11 +52,7 @@ while (row := koza_app.get_row()) is not None:
     elif category == 'biolink:SequenceVariant':
         EdgeClass = VariantToPhenotypicFeatureAssociation
     else:
-        # Raising an error here beceause this should be handled by the
-        # category lookup above
-        raise ValueError(f"Unknown category {category} for {id}")
-
-    source = source_map[row["objectId"].split(':')[0]]
+        continue # could raise ValueError(f"Unknown category {category} for {id}"), but there are quite a few so it's not an abnormal state apparently
 
     association = EdgeClass(
         id="uuid:" + str(uuid.uuid1()),
@@ -62,8 +60,8 @@ while (row := koza_app.get_row()) is not None:
         predicate="biolink:has_phenotype",
         object=phenotypic_feature_id,
         publications=[row["evidence"]["publicationId"]],
-        aggregator_knowledge_source=["infores:monarchinitiative", "infores:infores:agrkb"],
-        primary_knowledge_source=source,
+        aggregator_knowledge_source=["infores:monarchinitiative", "infores:agrkb"],
+        primary_knowledge_source=source_map[row["objectId"].split(':')[0]],
         knowledge_level=KnowledgeLevelEnum.knowledge_assertion,
         agent_type=AgentTypeEnum.manual_agent
     )

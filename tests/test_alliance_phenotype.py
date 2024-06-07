@@ -17,15 +17,38 @@ INGEST_NAME = "alliance_phenotype_associations"
 TRANSFORM_SCRIPT = "./src/alliance_phenotype_association_ingest/transform.py"
 
 
-# Define an example row to test (as a dictionary)
+
+def map_cache():
+    return {"alliance-entity-lookup": {"RGD:61958": {"gene_id": "RGD:61958"}}}
+
 @pytest.fixture
-def example_row():
-    return {
-        "example_column_1": "entity_1",
-        "example_column_2": "entity_6",
-        "example_column_3": "biolink:related_to",
+def rat_gene():
+    row = {
+        "dateAssigned": "2006-10-25T18:06:17.000-05:00",
+        "evidence": {
+            "crossReference": {"id": "RGD:1357201", "pages": ["reference"]},
+            "publicationId": "PMID:11549339",
+        },
+        "objectId": "RGD:61958",
+        "phenotypeStatement": "cardiac hypertrophy",
+        "phenotypeTermIdentifiers": [{"termId": "MP:0001625", "termOrder": 1}],
     }
 
+    return mock_koza(
+        INGEST_NAME,
+        row,
+        TRANSFORM_SCRIPT,
+    )
+
+@pytest.fixture
+def mouse(mock_koza):
+    row = {'objectId': 'MGI:87853', 'phenotypeTermIdentifiers': [{'termId': 'MP:0005118', 'termOrder': 1}], 'phenotypeStatement': 'decreased circulating pituitary hormone level', 'evidence': {'publicationId': 'PMID:9877102', 'crossReference': {'id': 'MGI:1328537', 'pages': ['reference']}}, 'primaryGeneticEntityIDs': ['MGI:3802742'], 'dateAssigned': '2008-08-19T00:00:00-04:00'}
+
+    return mock_koza(
+        INGEST_NAME,
+        row,
+        TRANSFORM_SCRIPT,
+    )
 
 # Or a list of rows
 @pytest.fixture
