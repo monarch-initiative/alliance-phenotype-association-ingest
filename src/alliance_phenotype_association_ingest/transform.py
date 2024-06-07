@@ -1,13 +1,15 @@
-from typing import List
 import uuid
-from koza.cli_utils import get_koza_app
+from typing import List
+
 # from source_translation import source_map
 from biolink_model.datamodel.pydanticmodel_v2 import (
+    AgentTypeEnum,
     GeneToPhenotypicFeatureAssociation,
     GenotypeToPhenotypicFeatureAssociation,
-    VariantToPhenotypicFeatureAssociation,
     KnowledgeLevelEnum,
-    AgentTypeEnum)
+    VariantToPhenotypicFeatureAssociation,
+)
+from koza.cli_utils import get_koza_app
 from loguru import logger
 
 source_map = {
@@ -35,7 +37,8 @@ while (row := koza_app.get_row()) is not None:
     print(row)
 
     id = row["objectId"]
-    try: category = entity_lookup[id]["category"]
+    try:
+        category = entity_lookup[id]["category"]
     except KeyError:
         # only debug here, because we expect some to not be found
         print(f"Could not find category for {id}")
@@ -52,7 +55,7 @@ while (row := koza_app.get_row()) is not None:
     elif category == 'biolink:SequenceVariant':
         EdgeClass = VariantToPhenotypicFeatureAssociation
     else:
-        continue # could raise ValueError(f"Unknown category {category} for {id}"), but there are quite a few so it's not an abnormal state apparently
+        continue  # could raise ValueError(f"Unknown category {category} for {id}"), but there are quite a few so it's not an abnormal state apparently
 
     association = EdgeClass(
         id="uuid:" + str(uuid.uuid1()),
@@ -63,7 +66,7 @@ while (row := koza_app.get_row()) is not None:
         aggregator_knowledge_source=["infores:monarchinitiative", "infores:agrkb"],
         primary_knowledge_source=source_map[row["objectId"].split(':')[0]],
         knowledge_level=KnowledgeLevelEnum.knowledge_assertion,
-        agent_type=AgentTypeEnum.manual_agent
+        agent_type=AgentTypeEnum.manual_agent,
     )
 
     if "conditionRelations" in row.keys() and row["conditionRelations"] is not None:
@@ -77,4 +80,3 @@ while (row := koza_app.get_row()) is not None:
         association.qualifiers = qualifiers
 
     koza_app.write(association)
-

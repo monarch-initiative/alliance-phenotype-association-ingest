@@ -9,7 +9,6 @@ https://koza.monarchinitiative.org/Usage/testing/
 """
 
 import pytest
-
 from koza.utils.testing_utils import mock_koza
 
 # Define the ingest name and transform script path
@@ -17,9 +16,9 @@ INGEST_NAME = "alliance_phenotype_associations"
 TRANSFORM_SCRIPT = "./src/alliance_phenotype_association_ingest/transform.py"
 
 
-
 def map_cache():
     return {"alliance-entity-lookup": {"RGD:61958": {"gene_id": "RGD:61958"}}}
+
 
 @pytest.fixture
 def rat_gene():
@@ -40,15 +39,24 @@ def rat_gene():
         TRANSFORM_SCRIPT,
     )
 
+
 @pytest.fixture
 def mouse(mock_koza):
-    row = {'objectId': 'MGI:87853', 'phenotypeTermIdentifiers': [{'termId': 'MP:0005118', 'termOrder': 1}], 'phenotypeStatement': 'decreased circulating pituitary hormone level', 'evidence': {'publicationId': 'PMID:9877102', 'crossReference': {'id': 'MGI:1328537', 'pages': ['reference']}}, 'primaryGeneticEntityIDs': ['MGI:3802742'], 'dateAssigned': '2008-08-19T00:00:00-04:00'}
+    row = {
+        'objectId': 'MGI:87853',
+        'phenotypeTermIdentifiers': [{'termId': 'MP:0005118', 'termOrder': 1}],
+        'phenotypeStatement': 'decreased circulating pituitary hormone level',
+        'evidence': {'publicationId': 'PMID:9877102', 'crossReference': {'id': 'MGI:1328537', 'pages': ['reference']}},
+        'primaryGeneticEntityIDs': ['MGI:3802742'],
+        'dateAssigned': '2008-08-19T00:00:00-04:00',
+    }
 
     return mock_koza(
         INGEST_NAME,
         row,
         TRANSFORM_SCRIPT,
     )
+
 
 # Or a list of rows
 @pytest.fixture

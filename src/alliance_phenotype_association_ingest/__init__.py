@@ -1,4 +1,5 @@
 """alliance-phenotype-association-ingest package."""
+
 import importlib_metadata
 
 try:
