@@ -16,12 +16,19 @@ INGEST_NAME = "alliance_phenotype_associations"
 TRANSFORM_SCRIPT = "./src/alliance_phenotype_association_ingest/transform.py"
 
 
+@pytest.fixture
 def map_cache():
-    return {"alliance-entity-lookup": {"RGD:61958": {"gene_id": "RGD:61958"}}}
+    return {"alliance-entity-lookup":
+        {
+          "RGD:61958": {"category": "biolink:Gene"},
+          "MGI:87853": {"category": "biolink:Gene"},
+          "MGI:2652709": {"category": "biolink:Genotype"},
+          "MGI:1855936": {"category": "biolink:SequenceVariant"}
+       }}
 
 
 @pytest.fixture
-def rat_gene():
+def rat_gene(mock_koza, map_cache):
     row = {
         "dateAssigned": "2006-10-25T18:06:17.000-05:00",
         "evidence": {
@@ -37,11 +44,20 @@ def rat_gene():
         INGEST_NAME,
         row,
         TRANSFORM_SCRIPT,
+        map_cache=map_cache
     )
+
+def test_rat_gene(rat_gene):
+    assert len(rat_gene) == 1
+    association = rat_gene[0]
+    assert association.category == ['biolink:GeneToPhenotypicFeatureAssociation']
+    assert association.subject == 'RGD:61958'
+    assert association.predicate == 'biolink:has_phenotype'
+    assert association.object == 'MP:0001625'
 
 
 @pytest.fixture
-def mouse(mock_koza):
+def mouse_gene(mock_koza, map_cache):
     row = {
         'objectId': 'MGI:87853',
         'phenotypeTermIdentifiers': [{'termId': 'MP:0005118', 'termOrder': 1}],
@@ -55,62 +71,56 @@ def mouse(mock_koza):
         INGEST_NAME,
         row,
         TRANSFORM_SCRIPT,
+        map_cache=map_cache
     )
 
+def test_mouse_gene(mouse_gene):
+    assert len(mouse_gene) == 1
+    association = mouse_gene[0]
+    assert association.category == ['biolink:GeneToPhenotypicFeatureAssociation']
+    assert association.subject == 'MGI:87853'
+    assert association.predicate == 'biolink:has_phenotype'
+    assert association.object == 'MP:0005118'
+    assert association.publications == ['PMID:9877102']
 
-# Or a list of rows
 @pytest.fixture
-def example_list_of_rows():
-    return [
-        {
-            "example_column_1": "entity_1",
-            "example_column_2": "entity_6",
-            "example_column_3": "biolink:related_to",
-        },
-        {
-            "example_column_1": "entity_2",
-            "example_column_2": "entity_7",
-            "example_column_3": "biolink:related_to",
-        },
-    ]
+def mouse_genotype(mock_koza, map_cache):
+    row = {'objectId': 'MGI:2652709', 'phenotypeTermIdentifiers': [{'termId': 'MP:0000067', 'termOrder': 1}],
+     'phenotypeStatement': 'osteopetrosis',
+     'evidence': {'publicationId': 'PMID:8018921', 'crossReference': {'id': 'MGI:67289', 'pages': ['reference']}},
+     'dateAssigned': '2010-04-05T00:00:00-04:00'}
 
-
-# Define the mock koza transform
-@pytest.fixture
-def mock_transform(mock_koza, example_row):
-    # Returns [entity_a, entity_b, association] for a single row
     return mock_koza(
         INGEST_NAME,
-        example_row,
+        row,
         TRANSFORM_SCRIPT,
+        map_cache=map_cache
     )
 
+def test_mouse_genotype(mouse_genotype):
+    assert len(mouse_genotype) == 1
+    association = mouse_genotype[0]
+    assert association.category == ['biolink:GenotypeToPhenotypicFeatureAssociation']
+    assert association.subject == 'MGI:2652709'
+    assert association.predicate == 'biolink:has_phenotype'
+    assert association.object == 'MP:0000067'
+    assert association.publications == ['PMID:8018921']
 
-# Or for multiple rows
 @pytest.fixture
-def mock_transform_multiple_rows(mock_koza, example_list_of_rows):
-    # Returns concatenated list of [entity_a, entity_b, association]
-    # for each row in example_list_of_rows
+def mouse_allele(mock_koza, map_cache):
+    row = {'objectId': 'MGI:1855936', 'phenotypeTermIdentifiers': [{'termId': 'MP:0008296', 'termOrder': 1}], 'phenotypeStatement': 'abnormal adrenal gland x-zone morphology', 'evidence': {'publicationId': 'PMID:7976166', 'crossReference': {'id': 'MGI:67485', 'pages': ['reference']}}, 'primaryGeneticEntityIDs': ['MGI:3789003'], 'dateAssigned': '2008-05-22T00:00:00-04:00'}
     return mock_koza(
         INGEST_NAME,
-        example_list_of_rows,
+        row,
         TRANSFORM_SCRIPT,
+        map_cache=map_cache
     )
 
-
-# Test the output of the transform
-
-
-def test_single_row(mock_transform):
-    assert len(mock_transform) == 3
-    entity = mock_transform[0]
-    assert entity
-    assert entity.name == "entity_1"
-
-
-def test_multiple_rows(mock_transform_multiple_rows):
-    assert len(mock_transform_multiple_rows) == 6
-    entity_a = mock_transform_multiple_rows[0]
-    entity_b = mock_transform_multiple_rows[1]
-    assert entity_a.name == "entity_1"
-    assert entity_b.name == "entity_6"
+def test_mouse_allele(mouse_allele):
+    assert len(mouse_allele) == 1
+    association = mouse_allele[0]
+    assert association.category == ['biolink:VariantToPhenotypicFeatureAssociation']
+    assert association.subject == 'MGI:1855936'
+    assert association.predicate == 'biolink:has_phenotype'
+    assert association.object == 'MP:0008296'
+    assert association.publications == ['PMID:7976166']

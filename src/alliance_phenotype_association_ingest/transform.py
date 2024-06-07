@@ -23,7 +23,7 @@ source_map = {
     "ZFIN": "infores:zfin",
 }
 
-koza_app = get_koza_app("alliance_phenotype")
+koza_app = get_koza_app("alliance_phenotype_associations")
 entity_lookup = koza_app.get_map("alliance-entity-lookup")
 
 while (row := koza_app.get_row()) is not None:
@@ -34,15 +34,11 @@ while (row := koza_app.get_row()) is not None:
         logger.warning("Phenotype ingest record has >1 phenotype terms: " + str(row))
         koza_app.next_row()
 
-    print(row)
-
     id = row["objectId"]
     try:
         category = entity_lookup[id]["category"]
     except KeyError:
-        # only debug here, because we expect some to not be found
-        print(f"Could not find category for {id}")
-        koza_app.next_row()
+        continue
 
     phenotypic_feature_id = row["phenotypeTermIdentifiers"][0]["termId"]
     # Remove the extra WB: prefix if necessary
@@ -55,7 +51,10 @@ while (row := koza_app.get_row()) is not None:
     elif category == 'biolink:SequenceVariant':
         EdgeClass = VariantToPhenotypicFeatureAssociation
     else:
-        continue  # could raise ValueError(f"Unknown category {category} for {id}"), but there are quite a few so it's not an abnormal state apparently
+        raise ValueError(f"Unknown category {category} for {id}")
+
+    if category == "biolink:SequenceVariant":
+        print(row)
 
     association = EdgeClass(
         id="uuid:" + str(uuid.uuid1()),
