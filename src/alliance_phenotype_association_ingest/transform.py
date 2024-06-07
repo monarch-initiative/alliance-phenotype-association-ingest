@@ -72,7 +72,6 @@ while (row := koza_app.get_row()) is not None:
                 if condition["conditionClassId"]:
                     qualifier_term = condition["conditionClassId"]
                     qualifiers.append(qualifier_term)
-        print(f"ID: {id}   Qualifiers: {qualifiers}")
         association.qualifiers = qualifiers
 
     koza_app.write(association)
