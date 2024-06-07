@@ -53,9 +53,6 @@ while (row := koza_app.get_row()) is not None:
     else:
         raise ValueError(f"Unknown category {category} for {id}")
 
-    if category == "biolink:SequenceVariant":
-        print(row)
-
     association = EdgeClass(
         id="uuid:" + str(uuid.uuid1()),
         subject=id,
