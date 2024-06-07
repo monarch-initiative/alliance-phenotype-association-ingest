@@ -1484,29 +1484,25 @@ validators = ">=0.20.0,<0.21.0"
 
 [[package]]
 name = "koza"
-version = "0.0.0"
+version = "0.6.0"
 description = "Data transformation framework for LinkML data models"
 optional = false
-python-versions = "^3.9"
-files = []
-develop = false
+python-versions = "<4.0,>=3.9"
+files = [
+    {file = "koza-0.6.0-py3-none-any.whl", hash = "sha256:21be1eb8d8d6dd24901fe913bd3430aac472a3bc1460d84bf4e1936133a5f8a1"},
+    {file = "koza-0.6.0.tar.gz", hash = "sha256:6fbc2e693c9956df0c3fb8b8b4304baeec6bc9eb4377e85f7ec5e15228e47376"},
+]
 
 [package.dependencies]
 duckdb = "*"
 linkml = ">=1.7.8"
 loguru = "*"
 ordered-set = ">=4.1.0"
-pydantic = "^2.4"
+pydantic = ">=2.4,<3.0"
 pyyaml = ">=5.0.0"
-requests = "^2.24.0"
+requests = ">=2.24.0,<3.0.0"
 sssom = ">=0.4"
 typer = ">=0.12.3"
-
-[package.source]
-type = "git"
-url = "https://github.com/monarch-initiative/koza"
-reference = "develop"
-resolved_reference = "1e412806a2467ddf7516be13da3b0cb097775695"
 
 [[package]]
 name = "linkml"
@@ -4099,4 +4095,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "05dcca619fe67a768493f51643f9bd6d172f2b19c6867b0df79d7ce4d01a40e1"
+content-hash = "f00f94ab0053671f4270d12e076906e4087798b126e9217e7e89c728e69cc50a"
