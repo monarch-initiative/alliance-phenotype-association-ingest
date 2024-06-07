@@ -23,7 +23,7 @@ source_map = {
     "ZFIN": "infores:zfin",
 }
 
-koza_app = get_koza_app("alliance_phenotype_associations")
+koza_app = get_koza_app("alliance_phenotype")
 entity_lookup = koza_app.get_map("alliance-entity-lookup")
 
 while (row := koza_app.get_row()) is not None:

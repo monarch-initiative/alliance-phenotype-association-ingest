@@ -12,7 +12,7 @@ import pytest
 from koza.utils.testing_utils import mock_koza
 
 # Define the ingest name and transform script path
-INGEST_NAME = "alliance_phenotype_associations"
+INGEST_NAME = "alliance_phenotype"
 TRANSFORM_SCRIPT = "./src/alliance_phenotype_association_ingest/transform.py"
 
 
