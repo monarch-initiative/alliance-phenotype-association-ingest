@@ -290,6 +290,17 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    alliance-phenotype-association-ingest Report
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="." class="md-nav__link md-nav__link--active">
         
   
@@ -299,6 +310,34 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#edges-report" class="md-nav__link">
+    <span class="md-ellipsis">
+      Edges Report
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -324,6 +363,23 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#edges-report" class="md-nav__link">
+    <span class="md-ellipsis">
+      Edges Report
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -341,6 +397,76 @@
 
 
 <h1 id="alliance-phenotype-association-ingest-report">alliance-phenotype-association-ingest Report</h1>
+<h2 id="edges-report">Edges Report</h2>
+<table>
+<thead>
+<tr>
+<th>category</th>
+<th>subject_prefix</th>
+<th>predicate</th>
+<th>object_prefix</th>
+<th>count_star()</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>biolink:GeneToPhenotypicFeatureAssociation</td>
+<td>MGI</td>
+<td>biolink:has_phenotype</td>
+<td>MP</td>
+<td>284576</td>
+</tr>
+<tr>
+<td>biolink:GeneToPhenotypicFeatureAssociation</td>
+<td>RGD</td>
+<td>biolink:has_phenotype</td>
+<td>MP</td>
+<td>3411</td>
+</tr>
+<tr>
+<td>biolink:GeneToPhenotypicFeatureAssociation</td>
+<td>WB</td>
+<td>biolink:has_phenotype</td>
+<td>WBPhenotype</td>
+<td>26562</td>
+</tr>
+<tr>
+<td>biolink:GenotypeToPhenotypicFeatureAssociation</td>
+<td>MGI</td>
+<td>biolink:has_phenotype</td>
+<td>MP</td>
+<td>387333</td>
+</tr>
+<tr>
+<td>biolink:GenotypeToPhenotypicFeatureAssociation</td>
+<td>RGD</td>
+<td>biolink:has_phenotype</td>
+<td>MP</td>
+<td>1947</td>
+</tr>
+<tr>
+<td>biolink:VariantToPhenotypicFeatureAssociation</td>
+<td>MGI</td>
+<td>biolink:has_phenotype</td>
+<td>MP</td>
+<td>311011</td>
+</tr>
+<tr>
+<td>biolink:VariantToPhenotypicFeatureAssociation</td>
+<td>RGD</td>
+<td>biolink:has_phenotype</td>
+<td>MP</td>
+<td>1725</td>
+</tr>
+<tr>
+<td>biolink:VariantToPhenotypicFeatureAssociation</td>
+<td>WB</td>
+<td>biolink:has_phenotype</td>
+<td>WBPhenotype</td>
+<td>26901</td>
+</tr>
+</tbody>
+</table>
 <h1 id="alliance-phenotype-association-ingest-pipeline">Alliance Phenotype Association Ingest Pipeline</h1>
 <p>This pipeline transforms the Alliance of Genome Resources phenotype association files to kgx tsv following the Biolink Model. </p>
 <p>The association files used are part of the process for importing MOD data into the Alliance KG, and in this case are an initial limited format. This format doesn't supply any category/type information for the subject of the phenotype associations - which makes it a challenge whether to produce a gene to phenotype association vs a genotype to phenotype association.</p>
