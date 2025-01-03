@@ -1,9 +1,9 @@
 category	subject_prefix	predicate	object_prefix	count_star()
-biolink:GeneToPhenotypicFeatureAssociation	MGI	biolink:has_phenotype	MP	285563
-biolink:GeneToPhenotypicFeatureAssociation	RGD	biolink:has_phenotype	MP	3452
-biolink:GeneToPhenotypicFeatureAssociation	WB	biolink:has_phenotype	WBPhenotype	26669
-biolink:GenotypeToPhenotypicFeatureAssociation	MGI	biolink:has_phenotype	MP	388657
-biolink:GenotypeToPhenotypicFeatureAssociation	RGD	biolink:has_phenotype	MP	1993
-biolink:VariantToPhenotypicFeatureAssociation	MGI	biolink:has_phenotype	MP	312055
-biolink:VariantToPhenotypicFeatureAssociation	RGD	biolink:has_phenotype	MP	1768
-biolink:VariantToPhenotypicFeatureAssociation	WB	biolink:has_phenotype	WBPhenotype	27016
+biolink:GeneToPhenotypicFeatureAssociation	MGI	biolink:has_phenotype	MP	286524
+biolink:GeneToPhenotypicFeatureAssociation	RGD	biolink:has_phenotype	MP	3434
+biolink:GeneToPhenotypicFeatureAssociation	WB	biolink:has_phenotype	WBPhenotype	26686
+biolink:GenotypeToPhenotypicFeatureAssociation	MGI	biolink:has_phenotype	MP	389724
+biolink:GenotypeToPhenotypicFeatureAssociation	RGD	biolink:has_phenotype	MP	1928
+biolink:VariantToPhenotypicFeatureAssociation	MGI	biolink:has_phenotype	MP	313051
+biolink:VariantToPhenotypicFeatureAssociation	RGD	biolink:has_phenotype	MP	1742
+biolink:VariantToPhenotypicFeatureAssociation	WB	biolink:has_phenotype	WBPhenotype	27033
